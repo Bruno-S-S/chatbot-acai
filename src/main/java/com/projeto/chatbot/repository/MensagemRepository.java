@@ -5,11 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface MensagemRepository extends JpaRepository<Mensagem, Integer> {
 
-    @Query(value = "select * from mensagem where id = :id", nativeQuery = true)
-    public Mensagem findMensagemById (@Param("id") int id);
+    @Query(value = "select * from mensagem where texto like %:texto%", nativeQuery = true)
+    public List<Mensagem> findMensagemByText(@Param("texto") String texto);
 
-    @Query(value = "delete from mensagem where id = :id", nativeQuery = true)
-    public Mensagem deleteMensagemById (@Param("id") int id);
 }

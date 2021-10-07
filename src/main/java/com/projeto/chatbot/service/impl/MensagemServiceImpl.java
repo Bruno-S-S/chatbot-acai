@@ -2,51 +2,46 @@ package com.projeto.chatbot.service.impl;
 
 import com.google.gson.Gson;
 import com.projeto.chatbot.data.Mensagem;
+import com.projeto.chatbot.repository.MensagemRepository;
 import com.projeto.chatbot.service.MensagemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MensagemServiceImpl implements MensagemService {
 
+    @Autowired
+    private MensagemRepository mensagemRepository;
+
     private Gson gson = new Gson();
     private Mensagem msg = new Mensagem();
-    List<String> opcoes = new ArrayList<>();
+
 
     @Override
-    public String mensagem(String msgUsuario) {
-
-        msgUsuario = msgUsuario.toLowerCase();
-
-        switch (msgUsuario) {
-            case "ola":
-                return gson.toJson(msg);
-            case "tudo bem?":
-                return "Estou muito bem, e você?";
-            case "1":
-                return pedido();
-            default:
-                return "Não entendi sua mensagem, por favor tente novamente";
-        }
+    public void newMensagem(Mensagem mensagem) {
+        mensagemRepository.save(mensagem);
     }
 
-    public List<String> menu() {
-        return Arrays.asList("Digite o número da opção:",
-                "1- Fazer pedido",
-                "2- Ajuda",
-                "3- Sair");
+    @Override
+    public Optional<Mensagem> findMensagemById(int id) {
+        return mensagemRepository.findById(id);
     }
 
-    public String pedido() {
-        return "\nEscolha o que vai em seu açai:\n" +
-                "1- Leite condensado\n" +
-                "2- MM's\n" +
-                "3- Morango";
+    @Override
+    public List<Mensagem> findMensagemByText(String texto) {
+        return mensagemRepository.findMensagemByText(texto);
     }
-    public String sair() {
-        return "Muito obrigado pelo contato, até a próxima :)";
+
+    @Override
+    public List<Mensagem> findMensagens() {
+        return mensagemRepository.findAll();
+    }
+
+    @Override
+    public void deleteMensagemById(int id) {
+        mensagemRepository.deleteById(id);
     }
 }

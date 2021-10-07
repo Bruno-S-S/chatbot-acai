@@ -13,8 +13,8 @@ public class Mensagem {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "mensagem", nullable = false)
-    private String mensagem;
+    @Column(name = "texto", nullable = false)
+    private String texto;
 
     @Column(name = "opcoes")
     private String opcoes;
@@ -30,12 +30,12 @@ public class Mensagem {
         this.id = id;
     }
 
-    public String getMensagem() {
-        return mensagem;
+    public String gettexto() {
+        return texto;
     }
 
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
+    public void settexto(String texto) {
+        this.texto = texto;
     }
 
     public List<String> getOpcoes() {
