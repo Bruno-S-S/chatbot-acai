@@ -8,19 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class ChatbotController {
+public class MensagemController {
 
     @Autowired
     private MensagemService mensagemService;
 
     @GetMapping("/mensagem")
     public ResponseEntity<?> findMensagem(@RequestParam(value = "id_mensagem", required = false) Integer id,
-                                          @RequestParam(value = "msgCliente", required = false) String mensagem) {
+                                          @RequestParam(value = "msgcliente", required = false) String msgCliente) {
 
-        if (id != null && mensagem == null) {
+        if (id != null && msgCliente == null) {
             return ResponseEntity.status(HttpStatus.OK).body(mensagemService.findMensagemById(id));
-        } else if (id == null && mensagem != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(mensagemService.findMensagemByText(mensagem));
+        } else if (id == null && msgCliente != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(mensagemService.findMensagemByText(msgCliente.toLowerCase()));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
@@ -35,6 +35,7 @@ public class ChatbotController {
     public ResponseEntity<?> newMensagem(@RequestBody Mensagem mensagem) {
 
         try {
+            mensagem.setMsgCliente(mensagem.getMsgCliente().toLowerCase());
             mensagemService.newMensagem(mensagem);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
         } catch (Exception e) {
@@ -47,7 +48,7 @@ public class ChatbotController {
 
         try {
             mensagemService.deleteMensagemById(id);
-            return ResponseEntity.status(HttpStatus.CREATED).body(null);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

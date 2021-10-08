@@ -5,13 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@Table(name = "MENSAGEM")
+@Table(name = "mensagem")
 public class Mensagem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
+    @Column(name = "msgcliente", nullable = false)
+    private String msgCliente;
 
     @Column(name = "texto", nullable = false)
     private String texto;
@@ -30,11 +33,19 @@ public class Mensagem {
         this.id = id;
     }
 
-    public String gettexto() {
+    public String getMsgCliente() {
+        return msgCliente;
+    }
+
+    public void setMsgCliente(String msgCliente) {
+        this.msgCliente = msgCliente;
+    }
+
+    public String getTexto() {
         return texto;
     }
 
-    public void settexto(String texto) {
+    public void setTexto(String texto) {
         this.texto = texto;
     }
 

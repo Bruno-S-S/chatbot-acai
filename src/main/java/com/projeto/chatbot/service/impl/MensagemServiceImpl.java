@@ -2,6 +2,7 @@ package com.projeto.chatbot.service.impl;
 
 import com.google.gson.Gson;
 import com.projeto.chatbot.data.Mensagem;
+import com.projeto.chatbot.data.MensagemResponse;
 import com.projeto.chatbot.repository.MensagemRepository;
 import com.projeto.chatbot.service.MensagemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class MensagemServiceImpl implements MensagemService {
     }
 
     @Override
-    public List<Mensagem> findMensagemByText(String texto) {
-        return mensagemRepository.findMensagemByText(texto);
+    public Optional<MensagemResponse> findMensagemByText(String msgCliente) {
+        return mensagemRepository.findMensagemByText(msgCliente);
     }
 
     @Override
