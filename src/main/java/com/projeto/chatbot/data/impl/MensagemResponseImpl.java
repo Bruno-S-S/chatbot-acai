@@ -20,5 +20,10 @@ public class MensagemResponseImpl implements MensagemResponse {
         return Arrays.asList(opcoes.split(","));
     }
 
+    @Override
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+
 
 }

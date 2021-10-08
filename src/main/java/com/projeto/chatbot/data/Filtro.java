@@ -17,6 +17,10 @@ public class Filtro {
     public Filtro() {
     }
 
+    public Filtro(String palavra) {
+        this.palavra = palavra;
+    }
+
     public int getId() {
         return id;
     }

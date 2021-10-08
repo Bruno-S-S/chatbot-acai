@@ -34,7 +34,23 @@ public class FiltroController {
     @PostMapping("/filtro")
     public ResponseEntity<?> newFiltro(@RequestBody Filtro filtro) {
 
-        filtroService.newFiltro(filtro);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        try {
+            filtroService.newFiltro(filtro);
+            return ResponseEntity.status(HttpStatus.CREATED).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+
+    }
+
+    @DeleteMapping("/filtro")
+    public ResponseEntity<?> deleteFiltroById(@RequestParam(value = "id") int id) {
+
+        try {
+            filtroService.deleteFiltroById(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }

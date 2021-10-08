@@ -1,8 +1,7 @@
 package com.projeto.chatbot.service.impl;
 
-import com.google.gson.Gson;
+import com.projeto.chatbot.data.Filtro;
 import com.projeto.chatbot.data.Mensagem;
-import com.projeto.chatbot.data.MensagemResponse;
 import com.projeto.chatbot.repository.MensagemRepository;
 import com.projeto.chatbot.service.MensagemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +15,8 @@ public class MensagemServiceImpl implements MensagemService {
 
     @Autowired
     private MensagemRepository mensagemRepository;
-
-    private Gson gson = new Gson();
-    private Mensagem msg = new Mensagem();
-
+    @Autowired
+    private FiltroServiceImpl filtroService;
 
     @Override
     public void newMensagem(Mensagem mensagem) {
@@ -32,7 +29,11 @@ public class MensagemServiceImpl implements MensagemService {
     }
 
     @Override
-    public Optional<MensagemResponse> findMensagemByText(String msgCliente) {
+    public Optional<Mensagem> findMensagemByText(String msgCliente) {
+
+        if(filtrarPalavra(msgCliente)) {
+            return mensagemRepository.findById(1);
+        }
         return mensagemRepository.findMensagemByText(msgCliente);
     }
 
@@ -44,5 +45,17 @@ public class MensagemServiceImpl implements MensagemService {
     @Override
     public void deleteMensagemById(int id) {
         mensagemRepository.deleteById(id);
+    }
+
+    private boolean filtrarPalavra(String mensagem) {
+        List<Filtro> palavras = filtroService.findFiltros();
+
+        for(Filtro palavra : palavras) {
+            if(mensagem.contains(palavra.getPalavra())) {
+                return true;
+            }
+            break;
+        }
+        return false;
     }
 }

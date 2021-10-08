@@ -7,4 +7,6 @@ public interface MensagemResponse {
     String getTexto();
 
     List<String> getOpcoes();
+
+    void setTexto(String texto);
 }

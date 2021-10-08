@@ -15,6 +15,6 @@ public interface FiltroService {
 
     public List<Filtro> findFiltros();
 
-    public void deleteFiltro(int id);
+    public void deleteFiltroById(int id);
 
 }

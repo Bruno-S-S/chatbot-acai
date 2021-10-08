@@ -25,6 +25,12 @@ public class Mensagem {
     public Mensagem() {
     }
 
+    public Mensagem(String msgCliente, String texto, String opcoes) {
+        this.msgCliente = msgCliente;
+        this.texto = texto;
+        this.opcoes = opcoes;
+    }
+
     public int getId() {
         return id;
     }

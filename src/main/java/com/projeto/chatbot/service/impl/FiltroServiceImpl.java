@@ -4,10 +4,12 @@ import com.projeto.chatbot.data.Filtro;
 import com.projeto.chatbot.repository.FiltroRepository;
 import com.projeto.chatbot.service.FiltroService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class FiltroServiceImpl implements FiltroService {
 
     @Autowired
@@ -25,16 +27,17 @@ public class FiltroServiceImpl implements FiltroService {
 
     @Override
     public Filtro findFiltroByPalavra(String palavra) {
+
         return filtroRepository.findFiltroByPalavra(palavra);
     }
 
     @Override
     public List<Filtro> findFiltros() {
-        return null;
+        return filtroRepository.findAll();
     }
 
     @Override
-    public void deleteFiltro(int id) {
+    public void deleteFiltroById(int id) {
         filtroRepository.deleteById(id);
     }
 }
