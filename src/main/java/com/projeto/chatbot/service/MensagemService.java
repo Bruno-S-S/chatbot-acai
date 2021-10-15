@@ -11,7 +11,7 @@ public interface MensagemService {
 
     public Optional<Mensagem> findMensagemById(int id);
 
-    public List<Mensagem> findMensagemByText(String texto);
+    public Optional<Mensagem> findMensagemByText(String msgCliente);
 
     public List<Mensagem> findMensagens();
 
