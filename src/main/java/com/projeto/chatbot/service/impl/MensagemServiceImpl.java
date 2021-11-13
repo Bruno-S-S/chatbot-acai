@@ -4,6 +4,8 @@ import com.projeto.chatbot.data.Filtro;
 import com.projeto.chatbot.data.Mensagem;
 import com.projeto.chatbot.repository.MensagemRepository;
 import com.projeto.chatbot.service.MensagemService;
+import com.projeto.chatbot.util.FiltroEnum;
+import com.projeto.chatbot.util.MensagensEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +33,8 @@ public class MensagemServiceImpl implements MensagemService {
     @Override
     public Optional<Mensagem> findMensagemByText(String msgCliente) {
 
-        if(filtrarPalavra(msgCliente)) {
-            return mensagemRepository.findById(1);
+        if (filtrarPalavra(msgCliente)) {
+            return mensagemRepository.findById(MensagensEnum.PALAVRAO.getId());
         }
         return mensagemRepository.findMensagemByText(msgCliente);
     }
@@ -50,12 +52,25 @@ public class MensagemServiceImpl implements MensagemService {
     private boolean filtrarPalavra(String mensagem) {
         List<Filtro> palavras = filtroService.findFiltros();
 
-        for(Filtro palavra : palavras) {
-            if(mensagem.contains(palavra.getPalavra())) {
+        for (Filtro palavra : palavras) {
+            if (mensagem.contains(palavra.getPalavra())) {
                 return true;
             }
-            break;
         }
         return false;
+    }
+
+    @Override
+    public Mensagem menuInicial(String nome) {
+
+        Optional<Mensagem> menuInicial = findMensagemById(MensagensEnum.MENU_INICIAL.getId());
+
+        String inicio =  menuInicial.get().getTexto().substring(0, 9);
+
+        String fim = menuInicial.get().getTexto().substring(9);
+
+        menuInicial.get().setTexto(inicio + " " + nome + fim);
+
+        return menuInicial.get();
     }
 }
