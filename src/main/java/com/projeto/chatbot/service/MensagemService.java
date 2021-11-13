@@ -16,4 +16,6 @@ public interface MensagemService {
     public List<Mensagem> findMensagens();
 
     public void deleteMensagemById(int id);
+
+    public Mensagem menuInicial(String nome);
 }
