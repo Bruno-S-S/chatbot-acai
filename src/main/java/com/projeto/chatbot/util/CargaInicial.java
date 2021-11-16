@@ -22,7 +22,7 @@ public class CargaInicial implements ApplicationRunner {
 
         if (mensagemService.findMensagemById(1).isEmpty()) {
             mensagemService.newMensagem(new Mensagem(MensagensEnum.BEM_VINDO.getFrase(), "Seja bem vindo! Por favor digite seu nome para começarmos", ""));
-            mensagemService.newMensagem(new Mensagem(MensagensEnum.MENU_INICIAL.getFrase(), "Bem vindo, por favor selecione uma das opções:", "1- Fazer pedido,2- Ajuda,3- Sair"));
+            mensagemService.newMensagem(new Mensagem(MensagensEnum.MENU_INICIAL.getFrase(), "Bem vindo(a), por favor selecione uma das opções:", "1- Fazer pedido,2- Ajuda,3- Sair"));
             mensagemService.newMensagem(new Mensagem(MensagensEnum.SEM_NOME.getFrase(), "Por favor, digite seu nome para continuar", ""));
             mensagemService.newMensagem(new Mensagem(MensagensEnum.TCHAU.getFrase(), "Adeus, até a próxima", ""));
             mensagemService.newMensagem(new Mensagem(MensagensEnum.PALAVRAO.getFrase(), "Que feio, falado palavrão :(", "1- Sair"));
