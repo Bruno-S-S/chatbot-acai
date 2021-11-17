@@ -4,11 +4,13 @@ import com.projeto.chatbot.data.Filtro;
 import com.projeto.chatbot.data.Mensagem;
 import com.projeto.chatbot.repository.MensagemRepository;
 import com.projeto.chatbot.service.MensagemService;
-import com.projeto.chatbot.util.FiltroEnum;
 import com.projeto.chatbot.util.MensagensEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,17 +62,49 @@ public class MensagemServiceImpl implements MensagemService {
         return false;
     }
 
-    @Override
-    public Mensagem menuInicial(String nome) {
+    private Mensagem menuInicial(String nome) {
 
         Optional<Mensagem> menuInicial = findMensagemById(MensagensEnum.MENU_INICIAL.getId());
 
-        String inicio =  menuInicial.get().getTexto().substring(0, 9);
+        if(menuInicial.isPresent()) {
+            String inicio = menuInicial.get().getTexto().substring(0, 12);
 
-        String fim = menuInicial.get().getTexto().substring(9);
+            String fim = menuInicial.get().getTexto().substring(12);
 
-        menuInicial.get().setTexto(inicio + " " + nome + fim);
+            menuInicial.get().setTexto(inicio + " " + nome + fim);
 
-        return menuInicial.get();
+            return menuInicial.get();
+        }
+
+        return new Mensagem();
+    }
+
+    @Override
+    public ResponseEntity<?> respostaMsg(String msgCliente, HttpServletRequest request) {
+
+        String nomeUsuario = (String) request.getSession().getAttribute("NOME");
+        Boolean inicio = (Boolean) request.getSession().getAttribute("INICIO");
+
+        if (nomeUsuario == null && inicio == null) {
+            request.getSession().setAttribute("INICIO", false);
+            return ResponseEntity.status(HttpStatus.OK).body(findMensagemById(MensagensEnum.BEM_VINDO.getId()));
+        }
+
+        if (nomeUsuario == null && !inicio) {
+            if (msgCliente == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(findMensagemById(MensagensEnum.SEM_NOME.getId()));
+            }
+            request.getSession().setAttribute("NOME", msgCliente);
+            return ResponseEntity.status(HttpStatus.OK).body(menuInicial(request.getSession().getAttribute("NOME").toString()));
+        }
+
+        if (msgCliente != null) {
+            if (msgCliente.equalsIgnoreCase(MensagensEnum.TCHAU.getFrase())) {
+                request.getSession().invalidate();
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(findMensagemByText(msgCliente.toLowerCase()));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 }

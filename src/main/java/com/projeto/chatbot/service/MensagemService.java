@@ -1,7 +1,9 @@
 package com.projeto.chatbot.service;
 
 import com.projeto.chatbot.data.Mensagem;
+import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,5 +19,5 @@ public interface MensagemService {
 
     public void deleteMensagemById(int id);
 
-    public Mensagem menuInicial(String nome);
+    public ResponseEntity<?> respostaMsg(String msgCliente, HttpServletRequest request);
 }
