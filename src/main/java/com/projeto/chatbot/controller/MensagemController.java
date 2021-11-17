@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @RestController
 public class MensagemController {
@@ -28,7 +27,7 @@ public class MensagemController {
     }
 
     @GetMapping("/mensagens")
-    public ResponseEntity<?> findMensagens(HttpSession session) {
+    public ResponseEntity<?> findMensagens() {
         return ResponseEntity.status(HttpStatus.OK).body(mensagemService.findMensagens());
     }
 
