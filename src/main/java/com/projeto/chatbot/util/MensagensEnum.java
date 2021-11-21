@@ -6,7 +6,9 @@ public enum MensagensEnum {
     MENU_INICIAL(2, "menu inicial"),
     SEM_NOME(3, "digite seu nome"),
     TCHAU(4,"tchau"),
-    PALAVRAO(5, "palavrao");
+    PALAVRAO(5, "palavrao"),
+    PIADA_CARRO(6, "piada do carro"),
+    PIADA_QUEIMADURA(7, "piada da queimadura");
 
     private String frase;
     private int id;

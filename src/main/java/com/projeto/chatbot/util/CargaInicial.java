@@ -18,7 +18,7 @@ public class CargaInicial implements ApplicationRunner {
     private FiltroService filtroService;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
 
         if (mensagemService.findMensagemById(1).isEmpty()) {
             mensagemService.newMensagem(new Mensagem(MensagensEnum.BEM_VINDO.getFrase(), "Seja bem vindo! Por favor digite seu nome para começarmos", ""));
@@ -26,6 +26,9 @@ public class CargaInicial implements ApplicationRunner {
             mensagemService.newMensagem(new Mensagem(MensagensEnum.SEM_NOME.getFrase(), "Por favor, digite seu nome para continuar", ""));
             mensagemService.newMensagem(new Mensagem(MensagensEnum.TCHAU.getFrase(), "Adeus, até a próxima", ""));
             mensagemService.newMensagem(new Mensagem(MensagensEnum.PALAVRAO.getFrase(), "Que feio, falado palavrão :(", "1- Sair"));
+
+            mensagemService.newMensagem(new Mensagem(MensagensEnum.PIADA_QUEIMADURA.getFrase(), "Porque uma queimadura leve nunca vai fazer faculdade? Porque ela só vai até o 1° grau", ""));
+            mensagemService.newMensagem(new Mensagem(MensagensEnum.PIADA_CARRO.getFrase(), "Porque um carro de corrida não pode correr em uma pista pequena? Porque é um curto circuito", ""));
 
             filtroService.newFiltro(new Filtro(FiltroEnum.PALAVRAO.getFrase()));
         }
