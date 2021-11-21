@@ -8,7 +8,12 @@ public enum MensagensEnum {
     TCHAU(4,"tchau"),
     PALAVRAO(5, "palavrao"),
     PIADA_CARRO(6, "piada do carro"),
-    PIADA_QUEIMADURA(7, "piada da queimadura");
+    PIADA_QUEIMADURA(7, "piada da queimadura"),
+    NAO_ENCONTRADO(8, "nao encontrado"),
+    ERRO_GENERICO(9, "erro generico"),
+    FAZER_PEDIDO(10, "1"),
+    AJUDA(11, "ajuda");
+
 
     private String frase;
     private int id;

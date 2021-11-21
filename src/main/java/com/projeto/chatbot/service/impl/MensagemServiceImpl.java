@@ -102,7 +102,15 @@ public class MensagemServiceImpl implements MensagemService {
             if (msgCliente.equalsIgnoreCase(MensagensEnum.TCHAU.getFrase())) {
                 request.getSession().invalidate();
             }
-            return ResponseEntity.status(HttpStatus.OK).body(findMensagemByText(msgCliente.toLowerCase()));
+            Optional<Mensagem> resposta = findMensagemByText(msgCliente.toLowerCase());
+
+            if(resposta.isPresent()) {
+                return ResponseEntity.status(HttpStatus.OK).body(resposta);
+            } else {
+                String sequencia = request.getAttribute("sequencia").toString();
+                request.setAttribute("sequencia", (sequencia.isEmpty()) ? msgCliente : sequencia + msgCliente);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(findMensagemById(MensagensEnum.NAO_ENCONTRADO.getId()));
+            }
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
