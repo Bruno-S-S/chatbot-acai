@@ -68,7 +68,7 @@ public class MensagemController {
 
     @GetMapping(path = "/mensagens", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> findMensagens() {
-        return ResponseEntity.status(HttpStatus.OK).body(mensagemService.findMensagemById(2));
+        return ResponseEntity.status(HttpStatus.OK).body(mensagemService.findMensagens());
     }
 
     @PostMapping("/mensagem")

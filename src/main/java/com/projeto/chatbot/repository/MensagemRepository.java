@@ -13,6 +13,6 @@ public interface MensagemRepository extends JpaRepository<Mensagem, Integer> {
 //    @Query("select msg from Mensagem msg where msg.msgCliente like %:msgCliente%")
 //    Optional<MensagemResponse> findMensagemByText(@Param("msgCliente") String msgCliente);
 
-    @Query(value = "select * from mensagem where msgcliente like %:msgcliente%", nativeQuery = true)
+    @Query(value = "select * from mensagem where msgcliente = :msgcliente", nativeQuery = true)
     Optional<Mensagem> findMensagemByText(@Param("msgcliente") String msgCliente);
 }
