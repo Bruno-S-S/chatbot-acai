@@ -90,7 +90,7 @@ public class MensagemServiceImpl implements MensagemService {
 
         httpHeaders.set(RequestEnum.HEADER_INICIO.getNome(), "n");
 
-        if (null == nomeUsuario) {
+        if (nomeUsuario.isEmpty()) {
             if (msgCliente.isEmpty()) {
                 httpHeaders.set(RequestEnum.HEADER_NOME_USUARIO.getNome(), nomeUsuario);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).headers(httpHeaders).body(findMensagemById(MensagensEnum.SEM_NOME.getId()));
@@ -112,7 +112,7 @@ public class MensagemServiceImpl implements MensagemService {
                     return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(gson.toJson(findMensagemByText(msgCliente)));
                 }*/
 
-                String pesquisa = (null != sequencia) ? gerarPesquisa(sequencia, msgCliente) : msgCliente;
+                String pesquisa = (!sequencia.isEmpty()) ? gerarPesquisa(sequencia, msgCliente) : msgCliente;
 
                 httpHeaders.set(RequestEnum.HEADER_SEQUENCIA.getNome(), pesquisa);
 

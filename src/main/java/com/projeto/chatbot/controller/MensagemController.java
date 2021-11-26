@@ -56,9 +56,9 @@ public class MensagemController {
 
     @GetMapping(path = "/mensagem", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> findMensagem(@RequestParam(value = "msg_cliente") String msgCliente,
-                                          @RequestHeader(value = "inicio") String inicio,
-                                          @RequestHeader(value = "nome", required = false) String nomeCliente,
-                                          @RequestHeader(value = "sequencia", required = false) String sequencia) {
+                                          @RequestParam(value = "inicio") String inicio,
+                                          @RequestParam(value = "nome", required = false) String nomeCliente,
+                                          @RequestParam(value = "sequencia", required = false) String sequencia) {
         try {
             return mensagemService.respostaMsg(msgCliente, inicio, nomeCliente, sequencia);
         } catch (Exception e) {
