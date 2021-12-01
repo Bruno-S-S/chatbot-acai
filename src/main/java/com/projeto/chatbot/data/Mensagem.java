@@ -23,6 +23,8 @@ public class Mensagem {
     private String opcoes;
 
     public Mensagem() {
+        this.msgCliente = "Erro";
+        this.texto = "Erro, por favor tentar novamente";
     }
 
     public Mensagem(String msgCliente, String texto, String opcoes) {
