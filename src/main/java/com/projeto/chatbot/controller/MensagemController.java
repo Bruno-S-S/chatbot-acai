@@ -43,6 +43,19 @@ public class MensagemController {
         }
     }
 
+    @PatchMapping("/mensagem")
+    public ResponseEntity<?> updateMensagem(@RequestParam(value = "msg_cliente") String msgCliente,
+                                            @RequestParam(value = "texto") String texto,
+                                            @RequestParam(value = "opcoes") String opcoes,
+                                            @RequestParam(value = "id") int id) {
+        try {
+            mensagemService.updateMensagem(msgCliente, texto, opcoes, id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     @DeleteMapping("/mensagem")
     public ResponseEntity<?> deleteMensagem(@RequestParam(value = "id_mensagem") int id) {
 

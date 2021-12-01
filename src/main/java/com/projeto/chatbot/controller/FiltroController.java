@@ -43,6 +43,17 @@ public class FiltroController {
 
     }
 
+    @PatchMapping("/filtro")
+    public ResponseEntity<?> updateMensagem(@RequestParam(value = "palavra") String palavra,
+                                            @RequestParam(value = "id") int id) {
+        try {
+            filtroService.updateFiltro(palavra, id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     @DeleteMapping("/filtro")
     public ResponseEntity<?> deleteFiltroById(@RequestParam(value = "id") int id) {
 

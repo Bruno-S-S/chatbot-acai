@@ -47,6 +47,11 @@ public class MensagemServiceImpl implements MensagemService {
     }
 
     @Override
+    public void updateMensagem(String msgCliente, String texto, String opcoes, int id) {
+        mensagemRepository.updateMensagem(msgCliente, texto, opcoes, id);
+    }
+
+    @Override
     public void deleteMensagemById(int id) {
         mensagemRepository.deleteById(id);
     }
@@ -109,19 +114,37 @@ public class MensagemServiceImpl implements MensagemService {
             try {
                 String pesquisa = (null != sequencia && !sequencia.isEmpty()) ? gerarPesquisa(sequencia, msgCliente) : msgCliente;
 
-                httpHeaders.set(RequestEnum.HEADER_SEQUENCIA.getNome(), pesquisa);
+                pesquisa = tratarSequencia(msgCliente, pesquisa);
 
-                return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(findMensagemByText(pesquisa));
+                Mensagem mensagem = findMensagemByText(pesquisa);
+
+                if (null != mensagem) {
+                    httpHeaders.set(RequestEnum.HEADER_SEQUENCIA.getNome(), pesquisa);
+                }
+
+                return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(mensagem);
             } catch (Exception ex) {
+                httpHeaders.set(RequestEnum.HEADER_SEQUENCIA.getNome(), sequencia);
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).headers(httpHeaders).body(findMensagemById(MensagensEnum.NAO_ENCONTRADO.getId()));
             }
 
         } else {
+            httpHeaders.set(RequestEnum.HEADER_SEQUENCIA.getNome(), sequencia);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).headers(httpHeaders).body(null);
         }
     }
 
     private String gerarPesquisa(String sequencia, String msgCliente) {
         return sequencia + "." + msgCliente;
+    }
+
+    private String tratarSequencia(String msgCliente, String sequencia) {
+
+        if (msgCliente.contains("0") || msgCliente.contains("*")) {
+
+            return sequencia.substring(0, sequencia.length() - 4);
+        }
+
+        return sequencia;
     }
 }

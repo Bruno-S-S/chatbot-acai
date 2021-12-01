@@ -15,6 +15,8 @@ public interface MensagemService {
 
     public List<Mensagem> findMensagens();
 
+    public void updateMensagem(String msgCliente, String texto, String opcoes, int id);
+
     public void deleteMensagemById(int id);
 
     public ResponseEntity<?> respostaMsg(String msgCliente, String inicio, String nomeCliente, String sequencia);

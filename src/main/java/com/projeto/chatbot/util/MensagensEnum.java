@@ -11,8 +11,7 @@ public enum MensagensEnum {
     PIADA_QUEIMADURA(7, "piada da queimadura"),
     NAO_ENCONTRADO(8, "nao encontrado"),
     ERRO_GENERICO(9, "erro generico"),
-    AJUDA(10, "ajuda"),
-    FAZER_PEDIDO(11, "1");
+    AJUDA(10, "ajuda");
 
 
 
