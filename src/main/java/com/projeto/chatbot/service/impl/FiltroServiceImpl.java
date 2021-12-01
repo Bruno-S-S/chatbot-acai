@@ -37,6 +37,11 @@ public class FiltroServiceImpl implements FiltroService {
     }
 
     @Override
+    public void updateFiltro(String palavra, int id) {
+        filtroRepository.updateFiltro(palavra, id);
+    }
+
+    @Override
     public void deleteFiltroById(int id) {
         filtroRepository.deleteById(id);
     }
